@@ -19,5 +19,6 @@ func main(){
     rect4 := &Rect{width: 100, height: 200}
     */
     rect := &Rect{0,0,100,200}
+    fmt.Println(rect)
     fmt.Println(rect.Area())
 }
