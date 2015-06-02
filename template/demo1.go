@@ -2,7 +2,7 @@ package main
 
 import (
     "net/http"
-    //"io"
+    "path"
     "fmt"
     "html/template"
 )
@@ -11,9 +11,15 @@ type Person struct{
     Age int32
 }
 
+func testFunc(arg string)string{
+    return "test"
+}
+
 func handleMain(w http.ResponseWriter,r *http.Request){
-    //指定一个模板  不需要New
-    t, err := template.ParseFiles("./tmpl/first.html")
+    funcMap:=template.FuncMap{"testFunc":testFunc} 
+    var tpl="./tmpl/first.html"
+    //使用path.Base 获取文件名 必须这么使用
+    t, err := template.New(path.Base(tpl)).Funcs(funcMap).ParseFiles(tpl)
     if err!=nil {
         fmt.Println(err)
         return
